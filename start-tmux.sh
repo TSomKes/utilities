@@ -7,6 +7,7 @@ sessionName=${PWD##*/}
 
 tmux has-session -t "$sessionName"
 
+# Create session if it doesn't already exist
 if [ $? != 0 ]
 then
 	# First window:  "code", current directory, 3 panes, main on left
