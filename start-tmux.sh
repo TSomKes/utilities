@@ -22,7 +22,8 @@ then
     tmux select-layout -t "$sessionName" main-vertical
 
     # Make sure the L pane is wide enough
-    # HACK - 'cause I haven't figured out how to size the L pane correctly.
+    # HACK - Very specific to my current lappy, 'cause I haven't figured out
+    # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
     # U-R pane starts with `ls`
@@ -41,7 +42,8 @@ then
     tmux select-layout -t "$sessionName" main-vertical
 
     # Make sure the L pane is wide enough
-    # HACK - 'cause I haven't figured out how to size the L pane correctly.
+    # HACK - Very specific to my current lappy, 'cause I haven't figured out
+    # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":1.0 -R 5         
 
     # R pane starts with `git statz`
