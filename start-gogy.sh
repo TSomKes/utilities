@@ -98,12 +98,12 @@ then
 
     # Set focus to L pane of first window (being nice to user)
     tmux select-window -t "$sessionName":0.0
-
-
-    # Fire up some Chrome tabs
-	google-chrome 'http://localhost:8000' &> /dev/null # Google App Engine
-	google-chrome 'http://localhost:8080' &> /dev/null # Gogy web service home 
-	google-chrome 'http://localhost:8050' &> /dev/null # Gogy reader
 fi
+
+# Fire up some Chrome tabs
+google-chrome 'http://localhost:8000' &> /dev/null & # Google App Engine
+google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
+google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
+
 
 tmux attach -t "$sessionName"
