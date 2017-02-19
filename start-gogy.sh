@@ -34,7 +34,7 @@ then
     tmux send-keys -t "$sessionName":0.0 'ls' C-m
 
     # M-R pane starts with web service being served
-    tmux send-keys -t "$sessionName":0.2 'dev_appserver.py .' C-m
+    tmux send-keys -t "$sessionName":0.2 'dev_appserver.py --clear_datastore=yes .' C-m
 
     # U-R pane starts ready to run local tests (w/o carriage return)
     tmux send-keys -t "$sessionName":0.1 'python test/webserviceAPI.py local'
@@ -47,7 +47,8 @@ then
     tmux select-pane -t "$sessionName":0.0
 
 
-    # Second window:  "client", ~/code/notes/, 4 panes, main on left
+    # Second window:  "client", ~/code/gogyup-literacy-app/, 4 panes, main on
+    # left
     cd ~/code/gogyup-literacy-app/
     tmux new-window -t "$sessionName" -n client
     tmux split-window -t "$sessionName"
@@ -76,8 +77,8 @@ then
     tmux select-pane -t "$sessionName":1.0
 
 
-    # Third window:  "notes", ~/code/notes/, 2 panes, main on left
-    cd ~/code/notes
+    # Third window:  "notes", ~/code/notes/gogyup/, 2 panes, main on left
+    cd ~/code/notes/gogyup
     tmux new-window -t "$sessionName" -n notes
     tmux split-window -t "$sessionName"
     tmux select-layout -t "$sessionName" main-vertical
@@ -101,8 +102,8 @@ then
 fi
 
 # Fire up some Chrome tabs
-google-chrome 'http://localhost:8000' &> /dev/null & # Google App Engine
-google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
+google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null & # Google App Engine
+#google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
 google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
 
 
