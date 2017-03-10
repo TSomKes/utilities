@@ -37,7 +37,7 @@ then
     tmux send-keys -t "$sessionName":0.2 'dev_appserver.py --clear_datastore=yes .' C-m
 
     # U-R pane starts ready to run local tests (w/o carriage return)
-    tmux send-keys -t "$sessionName":0.1 'python test/webserviceAPI.py local'
+    tmux send-keys -t "$sessionName":0.1 'python3 test/webserviceAPI.py local'
 
     # L-R pane starts with `git statz`
     tmux send-keys -t "$sessionName":0.3 'git fetch' C-m
