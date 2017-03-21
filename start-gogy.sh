@@ -7,7 +7,7 @@
 # - Relies on my usual directory structure
 # - I also use my own git aliases here
 
-sessionName=gogy
+sessionName=gogy 
 
 tmux has-session -t "$sessionName"
 
@@ -15,7 +15,8 @@ tmux has-session -t "$sessionName"
 if [ $? != 0 ]
 then
     # Trigger an up-front blocking request for ssh passphrase
-    ssh-add
+    ssh-add ~/.ssh/id_rsa
+    ssh-add ~/.ssh/gogy_id_rsa
 
     # First window:  "webservice", current directory, 4 panes, main on left
     cd ~/code/gogyup-web-services
@@ -95,6 +96,9 @@ then
 
     # Move focus to L pane (being nice to user)
     tmux select-pane -t "$sessionName":2.0
+
+    # Open doc
+    tmux send-keys -t "$sessionName":2.0 'vim TODO.note' C-m
 
 
     # Set focus to L pane of first window (being nice to user)
