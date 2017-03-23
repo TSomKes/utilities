@@ -8,13 +8,12 @@
 # - I also use my own git aliases here
 
 sessionName=$1
-project=$2
-projectPath=$3
+projectPath=$2
 
 # Third window:  "code", provided project directory, 4 panes, main on left
 cd $projectPath
 
-tmux new-window -t "$sessionName" -n $project
+tmux new-window -t "$sessionName" -n code
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"

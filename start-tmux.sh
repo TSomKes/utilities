@@ -94,7 +94,7 @@ then
 #    tmux select-pane -t "$sessionName":2.0
 
     
-    eval "$codeScript" $sessionName $project $originalDir
+    eval "$codeScript" $sessionName $originalDir
 
 
     # Set focus to L pane of first "code" window (being nice to user)
