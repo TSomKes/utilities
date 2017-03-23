@@ -40,6 +40,7 @@ then
 
     # L pane starts with all TODOs in vim
     tmux send-keys -t "$sessionName":0.0 'vim -p todo/*' C-m
+    tmux send-keys -t "$sessionName":0.0 ':tabe .' C-m
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
