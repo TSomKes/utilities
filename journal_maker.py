@@ -30,38 +30,30 @@ def GetFilenamePrevious(path):
     while not filename_previous and i < max_days:
         date += datetime.timedelta(days=-1)
         if FileExists(path, date):
-            filename_previous = target_filename
+            pass
+#            filename_previous = target_filename
         i += 1
 
     return filename_previous
 
 
-def GetJournalTemplate(date):
-    return '''{0} - {1}
-================
+def GetJournalTemplate(path, date):
+    template_path = os.path.join(path, 'templates/template.journal')
+    date_string = GetDateString(date) + ' - ' + date.strftime('%a')
+    with open(template_path, 'r') as template_file:
+        template = template_file.read()
+        template = template.replace('[[DATE]]', date_string)
+        print(template)
 
-    'sup?
-    
-
-    Todo
-    ----
-
-    [ ] example
-    
-    
-    Retro
-    -----
-    
-    
-    ### Task 1'''.format(GetDateString(date), date.strftime('%a'))
+    return template
 
 
 journals_path = "/home/tsomkes/temp"
 
-#filename_previous = GetFilenamePrevious(journals_path)
-#path_previous = None
-#if filename_previous:
-#    path_previous = os.path.join(journals_path, filename_previous)
+# filename_previous = GetFilenamePrevious(journals_path)
+# path_previous = None
+# if filename_previous:
+#     path_previous = os.path.join(journals_path, filename_previous)
 
 today = datetime.datetime.now()
 path_today = os.path.join(journals_path, GetDateFilename(today))
@@ -69,7 +61,9 @@ path_today = os.path.join(journals_path, GetDateFilename(today))
 tomorrow = today + datetime.timedelta(days=1)
 path_next = os.path.join(journals_path, GetDateFilename(tomorrow))
 
-for date in [today, tomorrow]:
-    if not FileExists(journals_path, date):
-        with open(os.path.join(journals_path, GetDateFilename(date)), 'w') as out:
-            out.write(GetJournalTemplate(date))
+for journal_date in [today, tomorrow]:
+    if not FileExists(journals_path, journal_date):
+        with open(os.path.join(journals_path,
+                               GetDateFilename(journal_date)),
+                  'w') as out:
+            out.write(GetJournalTemplate(journals_path, journal_date))
