@@ -39,8 +39,9 @@ then
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
     # L pane starts with all TODOs in vim
-    tmux send-keys -t "$sessionName":0.0 'vim -p todo/*' C-m
-    tmux send-keys -t "$sessionName":0.0 ':tabe .' C-m
+    tmux send-keys -t "$sessionName":0.0 'vim -p todo/*.todo' C-m
+    tmux send-keys -t "$sessionName":0.0 ':tablast' C-m
+    tmux send-keys -t "$sessionName":0.0 ':tabedit .' C-m
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
