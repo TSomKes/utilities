@@ -26,13 +26,8 @@ tmux has-session -t "$sessionName"
 if [ $? != 0 ]
 then
     
-
     # First window:  "journal", ~/journal, 2 panes, main on left
     cd ~/journal
-
-    # Create journal files for today & tomorrow, if they don't already 
-    # exist.
-    journal_maker.py ~/journal
 
     tmux new-session -s "$sessionName" -n journal -d
     tmux split-window -t "$sessionName"
@@ -43,8 +38,8 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane starts with all TODOs in vim
-    tmux send-keys -t "$sessionName":0.0 'vim -p todo/*.todo' C-m
+    # L pane starts with all project & waiting-for files in vim
+    tmux send-keys -t "$sessionName":0.0 'vim -p projects* waiting_for*' C-m
     tmux send-keys -t "$sessionName":0.0 ':tablast' C-m
     tmux send-keys -t "$sessionName":0.0 ':tabedit .' C-m
 
