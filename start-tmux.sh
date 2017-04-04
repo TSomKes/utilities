@@ -26,10 +26,10 @@ tmux has-session -t "$sessionName"
 if [ $? != 0 ]
 then
     
-    # First window:  "journal", ~/journal, 2 panes, main on left
-    cd ~/journal
+    # First window:  "plan", ~/notes/plans, 2 panes, main on left
+    cd ~/notes/plans
 
-    tmux new-session -s "$sessionName" -n journal -d
+    tmux new-session -s "$sessionName" -n plan -d
     tmux split-window -t "$sessionName"
     tmux select-layout -t "$sessionName" main-vertical
 
@@ -38,38 +38,14 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane starts with all project & waiting-for files in vim
-    tmux send-keys -t "$sessionName":0.0 'vim -p projects* waiting_for*' C-m
-    tmux send-keys -t "$sessionName":0.0 ':tablast' C-m
-    tmux send-keys -t "$sessionName":0.0 ':tabedit .' C-m
+    # L pane starts ready to open current plan file
+    tmux send-keys -t "$sessionName":0.0 'vim .' C-m
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
 
     # Move focus to L pane (being nice to user)
     tmux select-pane -t "$sessionName":0.0
-
-
-    # Second window:  "notes", ~/notes/, 2 panes, main on left
-    cd ~/notes
-
-    tmux new-window -t "$sessionName" -n notes
-    tmux split-window -t "$sessionName"
-    tmux select-layout -t "$sessionName" main-vertical
-
-    # Make sure the L pane is wide enough
-    # HACK - Very specific to my current lappy, 'cause I haven't figured out
-    # how to size the L pane correctly.
-    tmux resize-pane -t "$sessionName":1.0 -R 5         
-
-    # L pane starts with `ls`
-    tmux send-keys -t "$sessionName":1.0 'ls' C-m
-
-    # R pane starts with Dropbox status & `ls`
-    tmux send-keys -t "$sessionName":1.1 'dropbox status' C-m
-
-    # Move focus to L pane (being nice to user)
-    tmux select-pane -t "$sessionName":1.0
 
 
     eval "$codeScript" $sessionName $originalDir

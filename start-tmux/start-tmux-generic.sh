@@ -22,16 +22,16 @@ tmux select-layout -t "$sessionName" main-vertical
 # Make sure the L pane is wide enough
 # HACK - Very specific to my current lappy, 'cause I haven't figured out
 # how to size the L pane correctly.
-tmux resize-pane -t "$sessionName":2.0 -R 5         
+tmux resize-pane -t "$sessionName":1.0 -R 5         
 
 # U-R pane starts with `ls`
-tmux send-keys -t "$sessionName":2.1 'ls' C-m
+tmux send-keys -t "$sessionName":1.1 'ls' C-m
 
 # L-R pane starts with `git statz`
-tmux send-keys -t "$sessionName":2.3 'git statz' C-m
+tmux send-keys -t "$sessionName":1.3 'git statz' C-m
 
 # Move focus to L pane (being nice to user)
-tmux select-pane -t "$sessionName":2.0
+tmux select-pane -t "$sessionName":1.0
 
 
 # Set focus to L pane of first "code" window (being nice to user)
