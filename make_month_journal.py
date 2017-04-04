@@ -12,9 +12,11 @@ def GetDateTemplate(date):
     # 2017-03-01 - Wed
     # ----------------
     #
+    #     [ ]
+    #
     #
     header = '{0} - {1}\n'.format(date.strftime('%Y-%m-%d'), date.strftime('%a'))
-    header += '----------------\n\n\n'
+    header += '----------------\n\n'
     header += '    [ ]\n\n\n'
 
     return header
@@ -28,9 +30,9 @@ def GetFilename(year, month):
     return filename
 
 
-def GetFileText(year, month):
+def GetText(year, month):
     text = "{0}-{1} - Journal\n".format(str(year), str(month).zfill(2))
-    text += "=================\n\n\n"
+    text += "=================\n\n"
     text += '    [ ]\n\n\n'
 
     date_start = datetime.datetime(year, month, 1)
@@ -61,9 +63,7 @@ if __name__ == '__main__':
 
     full_path = os.path.join(path, filename)
 
-    # File already exists?  Done and done.
-    if os.path.exists(full_path):
-        sys.exit(0)
-
-    with open(full_path, 'w') as out:
-        out.write(GetFileText(year, month))
+    # Only make a file if it doesn't already exist.
+    if not os.path.exists(full_path):
+        with open(full_path, 'w') as out:
+            out.write(GetText(year, month))
