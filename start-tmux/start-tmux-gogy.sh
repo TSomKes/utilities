@@ -72,6 +72,8 @@ tmux select-pane -t "$sessionName":2.0
 
 
 # Fire up some Chrome tabs
+google-chrome 'https://gogyup-litapp.slack.com/messages/' &> /dev/null
+google-chrome 'https://www.toggl.com/app/timer' &> /dev/null
 google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null & # Google App Engine
 #google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
 google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
