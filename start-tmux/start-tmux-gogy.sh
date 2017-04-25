@@ -11,7 +11,7 @@ project="gogy"
 
 
 # Trigger an up-front blocking request for ssh passphrase
-ssh-add ~/.ssh/id_rsa
+#ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/gogy_id_rsa
 
 # Third window:  "webservice", 4 panes, main on left
@@ -32,10 +32,10 @@ tmux resize-pane -t "$sessionName":1.0 -R 5
 tmux send-keys -t "$sessionName":1.0 'ls' C-m
 
 # M-R pane starts with web service being served
-tmux send-keys -t "$sessionName":1.2 'dev_appserver.py --clear_datastore=yes .' C-m
+tmux send-keys -t "$sessionName":1.2 'make serve-local-clear-datastore' C-m
 
 # U-R pane starts ready to run local tests (w/o carriage return)
-tmux send-keys -t "$sessionName":1.1 'python3 test/webserviceAPI.py local'
+tmux send-keys -t "$sessionName":1.1 'make run-tests-local'
 
 # L-R pane starts with `git statz`
 tmux send-keys -t "$sessionName":1.3 'git fetch' C-m

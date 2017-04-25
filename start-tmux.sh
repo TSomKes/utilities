@@ -26,10 +26,10 @@ tmux has-session -t "$sessionName"
 if [ $? != 0 ]
 then
     
-    # First window:  "plan", ~/notes/plans, 2 panes, main on left
-    cd ~/notes/plans
+    # First window:  "notes", ~/notes, 2 panes, main on left
+    cd ~/notes
 
-    tmux new-session -s "$sessionName" -n plan -d
+    tmux new-session -s "$sessionName" -n notes -d
     tmux split-window -t "$sessionName"
     tmux select-layout -t "$sessionName" main-vertical
 
@@ -38,8 +38,8 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane starts ready to open current plan file
-    tmux send-keys -t "$sessionName":0.0 'vim .' C-m
+    # L pane with open plan file
+    tmux send-keys -t "$sessionName":0.0 'vim PLAN.txt' C-m
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
