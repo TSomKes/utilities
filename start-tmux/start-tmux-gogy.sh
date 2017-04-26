@@ -14,10 +14,11 @@ project="gogy"
 #ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/gogy_id_rsa
 
-# Third window:  "webservice", 4 panes, main on left
+# Third window:  "webservice", 5 panes, main on left
 cd ~/code/gogyup-web-services
 
 tmux new-window -t "$sessionName" -n webservice
+tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
@@ -31,15 +32,18 @@ tmux resize-pane -t "$sessionName":1.0 -R 5
 # L pane starts with `ls`
 tmux send-keys -t "$sessionName":1.0 'ls' C-m
 
-# M-R pane starts with web service being served
-tmux send-keys -t "$sessionName":1.2 'make serve-local-clear-datastore' C-m
-
 # U-R pane starts ready to run local tests (w/o carriage return)
 tmux send-keys -t "$sessionName":1.1 'make run-tests-local'
 
+# UM-R pane starts with web service being served
+tmux send-keys -t "$sessionName":1.2 'make serve-local-clear-datastore' C-m
+
+# LM-R pane starts with DB (in theory)
+tmux send-keys -t "$sessionName":1.3 'echo "DB goes here"' C-m
+
 # L-R pane starts with `git statz`
-tmux send-keys -t "$sessionName":1.3 'git fetch' C-m
-tmux send-keys -t "$sessionName":1.3 'git statz' C-m
+tmux send-keys -t "$sessionName":1.4 'git fetch' C-m
+tmux send-keys -t "$sessionName":1.4 'git statz' C-m
 
 # Move focus to L pane (being nice to user)
 tmux select-pane -t "$sessionName":1.0
