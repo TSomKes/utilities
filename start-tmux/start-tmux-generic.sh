@@ -10,6 +10,10 @@
 sessionName=$1
 projectPath=$2
 
+
+# Trigger an up-front blocking request for ssh passphrase
+ssh-add ~/.ssh/id_rsa
+
 # Third window:  "code", provided project directory, 4 panes, main on left
 cd $projectPath
 
