@@ -39,7 +39,8 @@ tmux send-keys -t "$sessionName":1.1 'make run-tests-local'
 tmux send-keys -t "$sessionName":1.2 'make serve-local-clear-datastore' C-m
 
 # LM-R pane starts with DB (in theory)
-tmux send-keys -t "$sessionName":1.3 'echo "DB goes here"' C-m
+tmux send-keys -t "$sessionName":1.3 'cd db/' C-m
+tmux send-keys -t "$sessionName":1.3 'mysql login-path=client' C-m
 
 # L-R pane starts with `git statz`
 tmux send-keys -t "$sessionName":1.4 'git fetch' C-m
@@ -76,8 +77,9 @@ tmux select-pane -t "$sessionName":2.0
 
 
 # Fire up some Chrome tabs
+google-chrome
 google-chrome 'https://gogyup-litapp.slack.com/messages/' &> /dev/null
 google-chrome 'https://www.toggl.com/app/timer' &> /dev/null
-google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null & # Google App Engine
+google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null # Google App Engine
 #google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
 google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
