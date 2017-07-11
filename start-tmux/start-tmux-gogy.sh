@@ -36,7 +36,7 @@ tmux send-keys -t "$sessionName":1.0 'ls' C-m
 tmux send-keys -t "$sessionName":1.1 'make run-tests-local'
 
 # UM-R pane starts with web service being served
-tmux send-keys -t "$sessionName":1.2 'make serve-local-clear-datastore' C-m
+tmux send-keys -t "$sessionName":1.2 'make serve-local' C-m
 
 # LM-R pane starts with DB (in theory)
 tmux send-keys -t "$sessionName":1.3 'cd db/' C-m
