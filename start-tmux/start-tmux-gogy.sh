@@ -18,10 +18,17 @@ ssh-add ~/.ssh/gogy_id_rsa
 cd ~/code/gogyup-web-services
 
 tmux new-window -t "$sessionName" -n webservice
+
+# Create one horizontal split, which leaves the right-hand pane active.  Then
+# split that pane three more times, leaving five total.
+# Note: I tried playing with percentages, but that required using the -d flag
+# to keep new panes from getting focus, and then I had to futz with changing
+# percentages (25, 33, 50...)
+tmux split-window -t "$sessionName" -h
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
 tmux split-window -t "$sessionName"
-tmux split-window -t "$sessionName"
+
 tmux select-layout -t "$sessionName" main-vertical
 
 # Make sure the L pane is wide enough
@@ -29,18 +36,17 @@ tmux select-layout -t "$sessionName" main-vertical
 # how to size the L pane correctly.
 tmux resize-pane -t "$sessionName":1.0 -R 5         
 
-# L pane starts with `ls`
-tmux send-keys -t "$sessionName":1.0 'ls' C-m
+# L pane starts empty
 
-# U-R pane starts ready to run local tests (w/o carriage return)
-tmux send-keys -t "$sessionName":1.1 'make run-tests-local'
+# U-R pane starts with ls
+tmux send-keys -t "$sessionName":1.1 'ls' C-m
 
 # UM-R pane starts with web service being served
 tmux send-keys -t "$sessionName":1.2 'make serve-local' C-m
 
 # LM-R pane starts with DB (in theory)
 tmux send-keys -t "$sessionName":1.3 'cd db/' C-m
-tmux send-keys -t "$sessionName":1.3 'mysql login-path=client' C-m
+tmux send-keys -t "$sessionName":1.3 'mysql --login-path=local' C-m
 
 # L-R pane starts with `git statz`
 tmux send-keys -t "$sessionName":1.4 'git fetch' C-m
