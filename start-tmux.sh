@@ -38,8 +38,8 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane with open plan file
-    tmux send-keys -t "$sessionName":0.0 'vim PLAN.txt' C-m
+    # L pane ready to open notes
+    tmux send-keys -t "$sessionName":0.0 'ls' C-m
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
