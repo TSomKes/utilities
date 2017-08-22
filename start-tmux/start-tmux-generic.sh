@@ -29,10 +29,10 @@ tmux select-layout -t "$sessionName" main-vertical
 tmux resize-pane -t "$sessionName":1.0 -R 5         
 
 # U-R pane starts with `ls`
-tmux send-keys -t "$sessionName":1.1 'ls' C-m
+tmux send-keys -t "$sessionName":1.1 'ls' Enter
 
 # L-R pane starts with `git statz`
-tmux send-keys -t "$sessionName":1.3 'git statz' C-m
+tmux send-keys -t "$sessionName":1.3 'git statz' Enter
 
 # Move focus to L pane (being nice to user)
 tmux select-pane -t "$sessionName":1.0

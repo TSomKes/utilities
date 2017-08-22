@@ -39,10 +39,10 @@ then
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
     # L pane ready to open notes
-    tmux send-keys -t "$sessionName":0.0 'ls' C-m
+    tmux send-keys -t "$sessionName":0.0 'ls' Enter
 
     # R pane starts with Dropbox status & `ls`
-    tmux send-keys -t "$sessionName":0.1 'dropbox status' C-m
+    tmux send-keys -t "$sessionName":0.1 'dropbox status' Enter
 
     # Move focus to L pane (being nice to user)
     tmux select-pane -t "$sessionName":0.0
