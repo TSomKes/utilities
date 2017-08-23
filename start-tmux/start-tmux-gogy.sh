@@ -106,13 +106,13 @@ tmux send-keys -t "$sessionName":3.2 'python3 -m http.server 8050' Enter
 # Move focus to L pane (being nice to user)
 tmux select-pane -t "$sessionName":3.0
 
-
 # Fire up some Chrome tabs
-google-chrome 'https://gogyup-litapp.slack.com/messages/' &> /dev/null
-google-chrome 'https://www.toggl.com/app/timer' &> /dev/null
-google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null # Google App Engine
-#google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
-google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
+google-chrome 'https://gogyup-litapp.slack.com/messages/' \
+              'https://www.toggl.com/app/timer' \
+              'http://localhost:8000/datastore?type=user' \
+              'http://localhost:8050' &> /dev/null
+
+#              'http://localhost:8080' \  # Local webservice
 
 # Start Postman (Chrome app)
 # Notes:  
