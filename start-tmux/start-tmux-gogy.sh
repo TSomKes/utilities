@@ -113,3 +113,9 @@ google-chrome 'https://www.toggl.com/app/timer' &> /dev/null
 google-chrome 'http://localhost:8000/datastore?type=user' &> /dev/null # Google App Engine
 #google-chrome 'http://localhost:8080' &> /dev/null & # Gogy web service home 
 google-chrome 'http://localhost:8050' &> /dev/null & # Gogy reader
+
+# Start Postman (Chrome app)
+# Notes:  
+#   - Followed directions in https://askubuntu.com/a/741685/19202. 
+#   - I worry that the app id might change with new versions/installations...?
+google-chrome --app-id=fhbjgbiflinjbdggehcddcbncdddomop
