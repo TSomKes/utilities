@@ -19,7 +19,7 @@ else
     sessionName=$project
 fi
 
-codeScript="~/code/utilities/start-tmux/start-tmux-$project.sh"
+codeScript="~/code/utilities/start-tmux-projects/$project.sh"
 
 # Create session if it doesn't already exist
 tmux has-session -t "$sessionName"
@@ -38,8 +38,8 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane ready to open notes
-    tmux send-keys -t "$sessionName":0.0 'ls' Enter
+    # L pane starts with empty vim
+    tmux send-keys -t "$sessionName":0.0 'vim' Enter
 
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' Enter

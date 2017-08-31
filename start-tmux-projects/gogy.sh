@@ -75,7 +75,7 @@ tmux send-keys -t "$sessionName":2.0 'mysql --login-path=local --database=gogy -
 tmux send-keys -t "$sessionName":2.1 'mysql --login-path=test --database=gogy --prompt="TEST> "'
 
 # L-R pane starts ready to connect to PROD DB
-tmux send-keys -t "$sessionName":2.2 'mysql --login-path=test --database=gogy --prompt="PROD> "'
+tmux send-keys -t "$sessionName":2.2 'mysql --login-path=prod --database=gogy --prompt="PROD> "'
 
 # Move focus to L pane (being nice to user)
 tmux select-pane -t "$sessionName":2.0
