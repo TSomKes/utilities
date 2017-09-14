@@ -108,10 +108,10 @@ tmux select-pane -t "$sessionName":3.0
 
 # Fire up some Chrome tabs
 google-chrome 'https://gogyup-litapp.slack.com/messages/' \
-              'https://www.toggl.com/app/timer' \
               'http://localhost:8000/datastore?type=user' \
               'http://localhost:8050' &> /dev/null
 
+#              'https://www.toggl.com/app/timer' \
 #              'http://localhost:8080' \  # Local webservice
 
 # Start Postman (Chrome app)
