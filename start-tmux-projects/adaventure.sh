@@ -7,7 +7,7 @@
 # - Relies on my usual directory structure
 # - I also use my own git aliases here
 
-project="wordyfun"
+project="adaventure"
 
 
 # Trigger an up-front blocking request for ssh passphrase
@@ -15,7 +15,7 @@ ssh-add ~/.ssh/id_rsa
 
 
 # Third window:  "webservice", 5 panes, main on left
-cd ~/code/wordyfun
+cd ~/code/adaventure
 
 tmux new-window -t "$sessionName" -n code
 
