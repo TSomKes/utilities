@@ -7,4 +7,4 @@
 
 filename=$1
 
-scrot -s ~/Pictures/Screenshots/$filename
+scrot -s ~/Pictures/Screenshots/$filename.png
