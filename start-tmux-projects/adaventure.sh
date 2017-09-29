@@ -35,12 +35,6 @@ tmux select-layout -t "$sessionName" main-vertical
 # how to size the L pane correctly.
 tmux resize-pane -t "$sessionName":1.0 -R 5         
 
-# L pane starts with vim
-tmux send-keys -t "$sessionName":1.0 'vim notes.txt' Enter
-tmux send-keys -t "$sessionName":1.0 ':tabe game.py' Enter
-tmux send-keys -t "$sessionName":1.0 ':tabe data/' Enter
-tmux send-keys -t "$sessionName":1.0 '1gt' Enter
-
 # U-R pane starts with ls
 tmux send-keys -t "$sessionName":1.1 'ls' Enter
 
