@@ -38,9 +38,6 @@ then
     # how to size the L pane correctly.
     tmux resize-pane -t "$sessionName":0.0 -R 5         
 
-    # L pane starts with empty vim
-    tmux send-keys -t "$sessionName":0.0 'vim' Enter
-
     # R pane starts with Dropbox status & `ls`
     tmux send-keys -t "$sessionName":0.1 'dropbox status' Enter
 
