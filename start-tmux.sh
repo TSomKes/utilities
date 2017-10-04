@@ -26,12 +26,14 @@ then
     tmux select-pane -t "$session":"$window".0
 fi
 
-# Were we given a project name?
-if ! [ -z $1 ]
+if [ -z $1 ]
 then 
+    # No project name - attach to basic session
+    tmux attach -t "$session"
+else
+    # Project name - continue to set up project
     project=$1
     codeScript="~/code/utilities/tmux-projects/$project.sh"
     eval "$codeScript" $session
 fi
 
-tmux attach -t "$session"
