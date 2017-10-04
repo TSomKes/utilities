@@ -1,5 +1,8 @@
 #!/bin/bash
 
+port=10070
+portAdmin=10071
+
 window="gu-ws"
 
 # Prevent creating duplicate windows
@@ -61,6 +64,14 @@ then
 
     # ...and return focus to main pane of first window
     tmux select-window -t "$sessionName":"$window".0
+
+    # Fire up some Chrome tabs
+    google-chrome "http://localhost:$port" \
+              "http://localhost:$portAdmin" &> /dev/null
 fi
 
-tmux attach -t "$session"
+# Not attached to session?
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } 
+then
+    tmux attach -t "$session"
+fi
