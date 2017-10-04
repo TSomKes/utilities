@@ -1,13 +1,13 @@
 #!/bin/bash
 
+# For use with my start-tmux.sh script.
+
 # Note:  Uses my own git aliases
 
 # Trigger an up-front blocking request for ssh passphrase
 ssh-add ~/.ssh/id_rsa
 
 window="adaventure"
-
-# Third window:  "webservice", 5 panes, main on left
 projectDir="$HOME/code/adaventure"
 
 tmux new-window -t "$session" -n "$window" -c "$projectDir"

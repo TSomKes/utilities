@@ -3,10 +3,6 @@
 # Inspired by various Google searches, but also by the book "tmux: productive
 # Mouse-Free Devleopment".
 
-# Hard-code-tastic!
-# - Relies on my usual directory structure
-
-originalDir=$PWD
 
 session="tsomkes"
 
@@ -15,10 +11,11 @@ tmux has-session -t "$session"
 if [ $? != 0 ]
 then
     window="notes"
-    notesPath="$HOME/notes"
+    notesDir="$HOME/notes"
     
-    tmux new-session -s "$session" -n "$window" -c "$notesPath" -d
-    tmux split-window -t "$session" -c "$notesPath"
+    tmux new-session -s "$session" -n "$window" -c "$notesDir" -d
+    tmux split-window -t "$session" -c "$notesDir"
+
     tmux select-layout -t "$session":"$window" main-vertical
 
     # R pane starts with Dropbox status & `ls`
@@ -34,7 +31,7 @@ if ! [ -z $1 ]
 then 
     project=$1
     codeScript="~/code/utilities/tmux-projects/$project.sh"
-    eval "$codeScript" $session $originalDir
+    eval "$codeScript" $session
 fi
 
 tmux attach -t "$session"
