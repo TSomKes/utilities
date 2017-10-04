@@ -4,15 +4,15 @@
 
 # Note:  Uses my own git aliases
 
-# Trigger an up-front blocking request for ssh passphrase
-ssh-add ~/.ssh/id_rsa
-
 window="adaventure"
 
 # Prevent creating duplicate windows
 tmux select-window -t "$session":"$window"
 if [ $? != 0 ]
 then
+    # Trigger an up-front blocking request for ssh passphrase
+    ssh-add ~/.ssh/id_rsa
+
     projectDir="$HOME/code/adaventure"
 
     tmux new-window -t "$session" -n "$window" -c "$projectDir"
@@ -35,3 +35,5 @@ then
     # Focus on main pane
     tmux select-pane -t "$session":"$window".0
 fi
+
+tmux attach -t "$session"
