@@ -5,52 +5,36 @@
 
 # Hard-code-tastic!
 # - Relies on my usual directory structure
-# - I also use my own git aliases here
 
 originalDir=$PWD
 
-# Were we given a project name?
-if [ -z $1 ]
-then 
-    project="generic"
-    sessionName=${PWD##*/}  # Name session for current dir
-else
-    project=$1
-    sessionName=$project
-fi
-
-codeScript="~/code/utilities/start-tmux-projects/$project.sh"
+session="tsomkes"
 
 # Create session if it doesn't already exist
-tmux has-session -t "$sessionName"
+tmux has-session -t "$session"
 if [ $? != 0 ]
 then
+    window="notes"
+    notesPath="$HOME/notes"
     
-    # First window:  "notes", ~/notes, 2 panes, main on left
-    cd ~/notes
-
-    tmux new-session -s "$sessionName" -n notes -d
-    tmux split-window -t "$sessionName"
-    tmux select-layout -t "$sessionName" main-vertical
-
-    # Make sure the L pane is wide enough
-    # HACK - Very specific to my current lappy, 'cause I haven't figured out
-    # how to size the L pane correctly.
-    tmux resize-pane -t "$sessionName":0.0 -R 5         
+    tmux new-session -s "$session" -n "$window" -c "$notesPath" -d
+    tmux split-window -t "$session" -c "$notesPath"
+    tmux select-layout -t "$session":"$window" main-vertical
 
     # R pane starts with Dropbox status & `ls`
-    tmux send-keys -t "$sessionName":0.1 'dropbox status' Enter
+    tmux send-keys -t "$session":"$window".1 'dropbox status' Enter
+    tmux send-keys -t "$session":"$window".1 'ls' Enter
 
-    # Move focus to L pane (being nice to user)
-    tmux select-pane -t "$sessionName":0.0
-
-
-    eval "$codeScript" $sessionName $originalDir
-
-
-    # Set focus to L pane of first "code" window (being nice to user)
-    tmux select-window -t "$sessionName":0.0
-
+    # Focus on main pane
+    tmux select-pane -t "$session":"$window".0
 fi
 
-tmux attach -t "$sessionName"
+# Were we given a project name?
+if ! [ -z $1 ]
+then 
+    project=$1
+    codeScript="~/code/utilities/tmux-projects/$project.sh"
+    eval "$codeScript" $session $originalDir
+fi
+
+tmux attach -t "$session"
