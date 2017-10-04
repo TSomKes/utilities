@@ -8,24 +8,30 @@
 ssh-add ~/.ssh/id_rsa
 
 window="adaventure"
-projectDir="$HOME/code/adaventure"
 
-tmux new-window -t "$session" -n "$window" -c "$projectDir"
-tmux split-window -t "$session" -h -c "$projectDir"
-tmux split-window -t "$session" -c "$projectDir"
-tmux split-window -t "$session" -c "$projectDir"
+# Prevent creating duplicate windows
+tmux select-window -t "$session":"$window"
+if [ $? != 0 ]
+then
+    projectDir="$HOME/code/adaventure"
 
-tmux select-layout -t "$session" main-vertical
+    tmux new-window -t "$session" -n "$window" -c "$projectDir"
+    tmux split-window -t "$session" -c "$projectDir"
+    tmux split-window -t "$session" -c "$projectDir"
+    tmux split-window -t "$session" -c "$projectDir"
 
-# U-R pane starts with ls
-tmux send-keys -t "$session":"$window".1 'ls' Enter
+    tmux select-layout -t "$session" main-vertical
 
-# M-R pane starts with mongo
-tmux send-keys -t "$session":"$window".2 'mongo' Enter
+    # U-R pane starts with ls
+    tmux send-keys -t "$session":"$window".1 'ls' Enter
 
-# L-R pane starts with `git statz`
-tmux send-keys -t "$session":"$window".3 'git fetch' Enter
-tmux send-keys -t "$session":"$window".3 'git statz' Enter
+    # M-R pane starts with mongo
+    tmux send-keys -t "$session":"$window".2 'mongo' Enter
 
-# Focus on main pane
-tmux select-pane -t "$session":"$window".0
+    # L-R pane starts with `git statz`
+    tmux send-keys -t "$session":"$window".3 'git fetch' Enter
+    tmux send-keys -t "$session":"$window".3 'git statz' Enter
+
+    # Focus on main pane
+    tmux select-pane -t "$session":"$window".0
+fi
