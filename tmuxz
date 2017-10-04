@@ -33,7 +33,7 @@ then
 else
     # Project name - continue to set up project
     project=$1
-    codeScript="~/code/utilities/tmux-projects/$project.sh"
+    codeScript="~/code/utilities/tmuxz-projects/$project.sh"
     eval "$codeScript" $session
 fi
 
