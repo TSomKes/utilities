@@ -1,6 +1,0 @@
-TODO
-====
-
-Might be cool to split the "notes" into its own utility.  That would let me call
-it separately for the times I only want to take notes.  (I could presumably then
-call this "notes" utility from within a more-often-used "code" utility?)

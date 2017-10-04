@@ -1,0 +1,6 @@
+TODO
+====
+
+    [ ] Add start-tmux auto-complete function, for project names
+        -   I've heard rumors of such magic being possible.  Bash
+            auto-completion scripts?
