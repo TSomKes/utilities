@@ -68,6 +68,9 @@ then
     # Fire up some Chrome tabs
     google-chrome "http://localhost:$port" \
               "http://localhost:$portAdmin" &> /dev/null
+
+    # Launch Postman
+    /usr/bin/postman
 fi
 
 # Not attached to session?
