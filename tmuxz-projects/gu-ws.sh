@@ -70,7 +70,7 @@ then
               "http://localhost:$portAdmin" &> /dev/null
 
     # Launch Postman
-    /usr/bin/postman
+    /usr/bin/postman &
 fi
 
 # Not attached to session?
