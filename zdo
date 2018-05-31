@@ -34,31 +34,34 @@ def GetActiveProjectFiles():
     return files
 
 
-def FindLines(filename, firstCharacter):
+def FindLines(fileContents, firstCharacter):
     title = ""
     lines = ""
 
-    with open(filename) as f:
-        title = f.readline()
+    title = fileContents.readline()
 
-        for line in f:
-            r = re.search('^' + firstCharacter, line)
-            if r:
-                lines += line
+    for line in fileContents:
+        r = re.search('^' + firstCharacter, line)
+        if r:
+            lines += line
 
     if lines != "":
         return title + lines
 
 
 def ListNextActionsBrief(filename):
-    results = FindLines(filename, '>')
+    results = None
+    with open(filename) as f:
+        results = FindLines(f, '>')
 
-    if results != "":
+    if results:
         print(results)
 
 
 def ListWaitingForBrief(filename):
-    results = FindLines(filename, '<')
+    results = None
+    with open(filename) as f:
+        results = FindLines(f, '<')
 
     if results:
         print(results)
@@ -69,10 +72,23 @@ def ListProjects():
 
     for pf in projectFiles:
         with open(pf) as f:
+            output = ""
             title = f.readline().strip()
             if title != 'Misc':
-                print(title)
+                if FindLines(f, '>'):
+                    output += '>'
+                else:
+                    output += ' '
 
+                f.seek(0)           # HACK!
+                if FindLines(f, '<'):
+                    output += '<'
+                else:
+                    output += ' '
+
+                output += ' ' 
+                output += title
+                print(output)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp'])
