@@ -1,0 +1,79 @@
+#! /usr/bin/python3
+
+import argparse
+from os import listdir, path
+import re
+
+
+PATH = path.expanduser('~/Dropbox/zdo')
+PATH_PROJECTS = PATH + '/projects'
+
+
+def CreateProject(name):
+    '''Create file under projects/, if not already present'''
+    filename = name.lower().replace(' ', '_') + '.txt'
+    filepath = path.join(PATH_PROJECTS, filename)
+    if not path.isfile(filepath):
+        with open(filepath, 'w') as f:
+            f.write(name + '\n')
+            f.write('=' * len(name) + '\n')
+
+
+def GetProjectFiles():
+    files = [path.join(PATH_PROJECTS, f) for f in listdir(PATH_PROJECTS) if
+             path.isfile(path.join(PATH_PROJECTS, f))]
+    return files
+
+
+def GetActiveFiles():
+    files = ["simple.txt"]
+    files.extend(GetProjectFiles())
+    return files
+
+
+def FindLines(filename, firstCharacter):
+    title = ""
+    lines = ""
+
+    with open(filename) as f:
+        title = f.readline()
+
+        for line in f:
+            r = re.search('^' + firstCharacter, line)
+            if r:
+                lines += line
+
+    if lines != "":
+        return title + lines
+
+
+def ListNextActionsBrief(filename):
+    results = FindLines(filename, '>')
+
+    if results != "":
+        print(results)
+
+
+def ListWaitingForBrief(filename):
+    results = FindLines(filename, '<')
+
+    if results:
+        print(results)
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('action', choices=['na', 'wf', 'pa'])
+parser.add_argument('title', nargs="*")
+args = parser.parse_args()
+
+if args.action == 'na':
+    for f in GetActiveFiles():
+        ListNextActionsBrief(f)
+
+elif args.action == 'wf':
+    for f in GetActiveFiles():
+        ListWaitingForBrief(f)
+
+elif args.action == 'pa':
+    title = ' '.join(args.title)
+    CreateProject(title)
