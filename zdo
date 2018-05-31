@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 
 import argparse
+from datetime import date
 from os import listdir, path
 import re
 
@@ -14,9 +15,11 @@ def CreateProject(name):
     filename = name.lower().replace(' ', '_') + '.txt'
     filepath = path.join(PATH_PROJECTS, filename)
     if not path.isfile(filepath):
+        addedDateStr = "\tAdded " + str(date.today())
         with open(filepath, 'w') as f:
             f.write(name + '\n')
-            f.write('=' * len(name) + '\n')
+            f.write('=' * len(name) + '\n\n')
+            f.write(addedDateStr)
 
 
 def GetProjectFiles():
@@ -25,8 +28,8 @@ def GetProjectFiles():
     return files
 
 
-def GetActiveFiles():
-    files = ["simple.txt"]
+def GetActiveProjectFiles():
+    files = ["misc.txt"]
     files.extend(GetProjectFiles())
     return files
 
@@ -61,19 +64,32 @@ def ListWaitingForBrief(filename):
         print(results)
 
 
+def ListProjects():
+    projectFiles = sorted(GetActiveProjectFiles())
+
+    for pf in projectFiles:
+        with open(pf) as f:
+            title = f.readline().strip()
+            if title != 'Misc':
+                print(title)
+
+
 parser = argparse.ArgumentParser()
-parser.add_argument('action', choices=['na', 'wf', 'pa'])
+parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp'])
 parser.add_argument('title', nargs="*")
 args = parser.parse_args()
 
 if args.action == 'na':
-    for f in GetActiveFiles():
+    for f in GetActiveProjectFiles():
         ListNextActionsBrief(f)
 
 elif args.action == 'wf':
-    for f in GetActiveFiles():
+    for f in GetActiveProjectFiles():
         ListWaitingForBrief(f)
 
 elif args.action == 'pa':
     title = ' '.join(args.title)
     CreateProject(title)
+
+elif args.action == 'lp':
+    ListProjects()
