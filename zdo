@@ -49,22 +49,41 @@ def FindLines(fileContents, firstCharacter):
         return title + lines
 
 
-def ListNextActionsBrief(filename):
-    results = None
+def GetNextActions(filename):
+    na = None
     with open(filename) as f:
-        results = FindLines(f, '>')
+        na = FindLines(f, '>')
 
-    if results:
-        print(results)
+    return na
 
 
-def ListWaitingForBrief(filename):
-    results = None
+def GetNextActionsList():
+    nal = ""
+    for f in GetActiveProjectFiles():
+        na = GetNextActions(f)
+        if na:
+            nal += na + '\n'
+
+    return nal
+
+
+def GetWaitingFor(filename):
+    wf = None
     with open(filename) as f:
-        results = FindLines(f, '<')
+        wf = FindLines(f, '<')
 
-    if results:
-        print(results)
+    return wf
+
+
+def GetWaitingForList():
+    wfl = ""
+
+    for f in GetActiveProjectFiles():
+        wf = GetWaitingFor(f)
+        if wf:
+            wfl += wf + '\n'
+
+    return wfl
 
 
 def ListProjects():
@@ -86,22 +105,21 @@ def ListProjects():
                 else:
                     output += ' '
 
-                output += ' ' 
+                output += ' '
                 output += title
                 print(output)
 
+
 parser = argparse.ArgumentParser()
-parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp'])
+parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp', 'uw'])
 parser.add_argument('title', nargs="*")
 args = parser.parse_args()
 
 if args.action == 'na':
-    for f in GetActiveProjectFiles():
-        ListNextActionsBrief(f)
+    print(GetNextActionsList())
 
 elif args.action == 'wf':
-    for f in GetActiveProjectFiles():
-        ListWaitingForBrief(f)
+    print(GetWaitingForList())
 
 elif args.action == 'pa':
     title = ' '.join(args.title)
@@ -109,3 +127,9 @@ elif args.action == 'pa':
 
 elif args.action == 'lp':
     ListProjects()
+
+elif args.action == 'uw':
+    with open('_week.txt', 'w') as f:
+        f.write(GetNextActionsList())
+        f.write('-----\n\n')
+        f.write(GetWaitingForList())
