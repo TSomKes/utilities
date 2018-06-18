@@ -29,12 +29,12 @@ def GetProjectFiles():
 
 
 def GetActiveProjectFiles():
-    files = ["misc.txt"]
+    files = ["_misc.txt"]
     files.extend(GetProjectFiles())
     return files
 
 
-def FindLines(fileContents, firstCharacter):
+def FindLines(fileContents, firstCharacter, includeTitle=True):
     title = ""
     lines = ""
 
@@ -46,7 +46,10 @@ def FindLines(fileContents, firstCharacter):
             lines += line
 
     if lines != "":
-        return title + lines
+        if includeTitle:
+            return title + lines
+        else:
+            return lines
 
 
 def GetNextActions(filename):
@@ -111,7 +114,7 @@ def ListProjects():
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp', 'uw'])
+parser.add_argument('action', choices=['na', 'wf', 'pa', 'lp', 'uw', 'ud'])
 parser.add_argument('title', nargs="*")
 args = parser.parse_args()
 
@@ -130,6 +133,19 @@ elif args.action == 'lp':
 
 elif args.action == 'uw':
     with open('_week.txt', 'w') as f:
+        f.write("WEEK\n")
+        f.write("====\n\n")
         f.write(GetNextActionsList())
         f.write('-----\n\n')
         f.write(GetWaitingForList())
+
+elif args.action == 'ud':
+    with open('_day.txt', 'w') as d:
+        with open('_week.txt') as w:
+            na = FindLines(w, '>', False)
+            if na:
+                d.write(na)
+            w.seek(0)           # HACK!
+            wf = FindLines(w, '<', False)
+            if wf:
+                d.write(wf)
