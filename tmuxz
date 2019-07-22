@@ -10,30 +10,18 @@ session="tsomkes"
 tmux has-session -t "$session"
 if [ $? != 0 ]
 then
-    window="notes"
-    notesDir="$HOME/notes"
-    
-    tmux new-session -s "$session" -n "$window" -c "$notesDir" -d
-    tmux split-window -t "$session" -c "$notesDir"
+    window="main"
+
+    tmux new-session -s "$session" -n "$window" -d
+    tmux split-window -t "$session"
+    tmux split-window -t "$session"
 
     tmux select-layout -t "$session":"$window" main-vertical
 
-    # R pane starts with Dropbox status & `ls`
-    tmux send-keys -t "$session":"$window".1 'dropbox status' Enter
-    tmux send-keys -t "$session":"$window".1 'ls' Enter
+    tmux resize-pane -t "$session":"$window".0 -x 50
 
     # Focus on main pane
-    tmux select-pane -t "$session":"$window".0
+    tmux select-pane -t "$session".0
 fi
 
-if [ -z $1 ]
-then 
-    # No project name - attach to basic session
-    tmux attach -t "$session"
-else
-    # Project name - continue to set up project
-    project=$1
-    codeScript="~/code/utilities/tmuxz-projects/$project.sh"
-    eval "$codeScript" $session
-fi
-
+tmux attach -t "$session"
