@@ -26,4 +26,4 @@ tmux split-window -t "$project":"$winBackground" -c "$projectDir" -d
 tmux select-layout -t "$project":"$winBackground" tiled
 
 tmux send-keys -t "$project":"$winBackground".0 "make serve" Enter
-tmux send-keys -t "$project":"$winBackground".1 "lynx" Enter
+tmux send-keys -t "$project":"$winBackground".1 "make lynx-browse" Enter
