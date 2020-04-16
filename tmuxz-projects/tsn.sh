@@ -1,4 +1,4 @@
-project="notes"
+project="tsn"
 projectDir=~/code/tslib.com
 winCode="code"
 winBackground="background"
