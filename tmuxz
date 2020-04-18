@@ -10,7 +10,8 @@ tmux has-session -t $project 2>/dev/null
 if [ $? != 0 ]
 then
     scriptPath=$(dirname "$0")/tmuxz-projects/$project.sh
-    eval "$scriptPath"
+    #eval "$scriptPath"
+    $scriptPath
 fi
 
 tmux attach-session -t "$session"
