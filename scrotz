@@ -5,6 +5,6 @@
 #
 # Basically, papering over some missing parameters I wish scrot accepted...
 
-filename=$1
+FILENAME="$(date -Isecond)"
 
-scrot -s ~/Pictures/screenshots/$filename.png
+scrot -s "${HOME}/Pictures/screenshots/${FILENAME}.png"
