@@ -1,6 +1,28 @@
 #!/usr/bin/sh
 
-# Attempt to make it easy to open a new st terminal in the same working
-# directory.
+# Second-most-gross hack ever.  
+# Calling st-pwd doesn't work more than once, probably because it's bad.  But I
+# want more windows.  
+# So let's iterate over the badness.
 
-st << "cd ${pwd}" &
+NUM=$1
+
+# Min 1, max 4, default to 1 
+if [ $NUM -gt 0 ]
+then
+    if [ $NUM -gt 4 ] 
+    then 
+        NUM=4
+    fi
+else
+    NUM=1
+fi
+
+
+# Make some windows
+i=0
+while [ $i -lt $NUM ]
+do 
+    ~/code/utilities/st-pwd
+    i=$((i+1))
+done
