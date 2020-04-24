@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+# Attempt to make it easy to open a new st terminal in the same working
+# directory.
+
+st << "cd ${pwd}" &
