@@ -1,9 +1,7 @@
 #!/usr/bin/sh
 
-# Second-most-gross hack ever.  
-# Calling st-pwd doesn't work more than once, probably because it's bad.  But I
-# want more windows.  
-# So let's iterate over the badness.
+# Open one or more terminal panes.
+# Useful for my dev projects.
 
 NUM=$1
 
@@ -23,6 +21,6 @@ fi
 i=0
 while [ $i -lt $NUM ]
 do 
-    ~/code/utilities/st-pwd
+    kitty -d $PWD &
     i=$((i+1))
 done

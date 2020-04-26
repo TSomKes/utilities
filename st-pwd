@@ -1,6 +1,0 @@
-#!/usr/bin/sh
-
-# Open a new st terminal in the same working directory.
-# Note:  gross, probably driven by typos and bugs.
-
-st <<"(cd $PWD) && $1" &
