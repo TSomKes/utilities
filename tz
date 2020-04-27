@@ -3,9 +3,10 @@
 # Open one or more terminal panes.
 # Useful for my dev projects.
 
-NUM=$1
+# Default to 1
+NUM=${1:-1}
 
-# Min 1, max 4, default to 1 
+# Min 1, max 4, default to 1 (for bad value)
 if [ $NUM -gt 0 ]
 then
     if [ $NUM -gt 4 ] 
