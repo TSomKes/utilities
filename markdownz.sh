@@ -13,6 +13,8 @@ input="${@}"
 # Grab arguments
 # - Arguments plural:  multiple .md files is okay, they'll be concatenated
 # - No arguments = exit
+# - Maybe someday allow input from stdin, for shell-repl-like behavior?
+#   - https://zwbetz.com/passing-input-to-a-bash-function-via-arguments-or-stdin/
 if [ -z "${input}" ]; then
     return 1
 fi
