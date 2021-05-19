@@ -27,7 +27,5 @@ fi
 
 VOL=`echo "scale=1; $VOL / 10" | bc -l`
 
-echo $VOL
-
 # Generate 1 minute; repeat for 4 hours.
 play -c 2 -n synth 01:00 brownnoise vol $VOL repeat 240
