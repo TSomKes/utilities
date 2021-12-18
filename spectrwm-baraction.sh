@@ -1,20 +1,21 @@
 #!/bin/sh
-#
 
-SLEEP_SEC=5  
+SLEEP_SEC=5
+
 while :; do
 
     # Screen brightness
-    BRIGHT=`cat /sys/class/backlight/acpi_video0/actual_brightness`
+    MAX_BRIGHT=`cat /sys/class/backlight/intel_backlight/max_brightness`
+    BRIGHT=`cat /sys/class/backlight/intel_backlight/actual_brightness`
+    RELATIVE_BRIGHT=$((100 * $BRIGHT / $MAX_BRIGHT))
 
     # Volume
-    V_LVL=`amixer sget Master \
-        | awk 'NR==5{print $4}' \
-        | sed "s/[^0-9]//g"`
+    V_LVL=`amixer sget Master | \
+        awk -F"[][]" '/Left:/ { print $2 }'`
 
     V_MUTE=''
     V_STATE=`amixer sget Master \
-        | awk 'NR==5{print $6}' \
+        | awk '/Left:/ {print $6}' \
         | sed "s/[^a-z]//g"`
     if [ $V_STATE = 'off' ]; then
         V_MUTE='m'
@@ -25,13 +26,15 @@ while :; do
 
     B_SYM=''
     B_STATE=`cat /sys/class/power_supply/BAT0/status`
-    if [ $B_STATE = 'Charging' ]; then
-        B_SYM='+'
-    elif [ $B_STATE = 'Discharging' ]; then
+    if [ $B_STATE = 'Disharging' ]; then
         B_SYM='-'
+    else
+        # both 'Charging' and 'Unknown' seem to indicate charging
+        B_SYM='+'
     fi
 
-    echo "${BRIGHT} | ${V_MUTE}${V_LVL}% | ${B_SYM}${B_CAP}% | "
+    echo " ${RELATIVE_BRIGHT}% | v ${V_MUTE}${V_LVL} | b ${B_SYM}${B_CAP}% | "
 
     sleep $SLEEP_SEC
+
 done
