@@ -38,5 +38,5 @@ ln $FLAG -s $UTILITIES_ABS_PATH/markdownz.sh $BIN_DIR/markdownz
 ln $FLAG -s $UTILITIES_ABS_PATH/noisez.sh $BIN_DIR/noisez
 ln $FLAG -s $UTILITIES_ABS_PATH/scrotz.sh $BIN_DIR/scrotz
 ln $FLAG -s $UTILITIES_ABS_PATH/start-minecraft.sh $BIN_DIR/start-minecraft
-ln $FLAG -s $UTILITIES_ABS_PATH/start-wireguard.sh $BIN_DIR/start-wireguard
 ln $FLAG -s $UTILITIES_ABS_PATH/tz.sh $BIN_DIR/tz
+ln $FLAG -s $UTILITIES_ABS_PATH/wireguard-start.sh $BIN_DIR/wireguard-start
