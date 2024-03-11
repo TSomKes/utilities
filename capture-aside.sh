@@ -13,6 +13,6 @@ if [[ -n $note ]]; then
     output=$'## '$(date +"%Y-%m-%d %a %R")
     output+=$'\n'
     output+=$note
-    output+=$'\n\n'
+    output+=$'\n'
     echo "$output" >> "$asidefile"
 fi
