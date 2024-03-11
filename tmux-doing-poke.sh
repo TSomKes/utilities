@@ -5,4 +5,4 @@
 # $ crontab -e
 # */30 * * * * ~/code/utilities/tmux-poke.sh
 
-tmux display-message -d 10000 "#[fill=yellow bg=white align=centre]   ***   Whatcha doin'?   ***   "
+tmux display-message -d 30000 "#[fill=blue bg=yellow align=centre]     * * *     Whatcha doin'?     * * *     "
