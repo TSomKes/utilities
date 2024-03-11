@@ -2,7 +2,7 @@
 
 note=$(vipe)
 
-if [ -z "${WSL_DISTRO_NAME}" ]; then
+if [ -n "${WSL_DISTRO_NAME}" ]; then
     asidefile="$HOME/notes/pa/asides-desky.md"
 else
     asidefile="$HOME/notes/pa/asides-lappy.md"
